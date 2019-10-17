@@ -51,6 +51,8 @@ public class Sort {
     
     // method to call sorting methods for length and alphabetically
     private void sortList() {
+        sortLen();
+        sortABC();
     }
 
     // method to sort array of names, passed as a parameter
