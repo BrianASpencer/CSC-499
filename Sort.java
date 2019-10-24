@@ -7,8 +7,12 @@ Purpose: Sorts the contents of a file in ascending order by the length of the na
 package Sort;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 
 public class Sort {
     private String [] names;
@@ -91,14 +95,30 @@ public class Sort {
 
     private void print() {
         // printing out the array of names
+        String s = "";
+        int cnt = 0;
         for (String name : names) {
-            System.out.println(name);
+            if (cnt != names.length-1) {
+                s += name + "\n";
+            } else {
+                s += name;
+            }
+            cnt++;
+        }
+        writeUsingFiles(s);
+    }
+
+    private static void writeUsingFiles(String data) {
+        try {
+            Files.write(Paths.get("C:\\Users\\Brian\\Desktop\\CSC499\\Output.txt"), data.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
     public static void main(String[] args) throws Exception {
         // pass the path to the file as a parameter 
-        File file = new File("C:\\Users\\Brian\\Downloads\\Sort Me.txt");
+        File file = new File("C:\\Users\\Brian\\Desktop\\CSC499\\Sort Me.txt");
 
         Sort sort = new Sort(file);
         
