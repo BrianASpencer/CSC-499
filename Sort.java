@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Comparator;
 
 
 public class Sort {
@@ -55,8 +56,49 @@ public class Sort {
     
     // method to call sorting methods for length and alphabetically
     private void sortList() {
-        sortLen();
-        sortABC();
+        //sortLen();
+        //sortABC();
+        for (int i = 0; i < names.length; i++) {
+            for (int j = 0; j < names.length-1; j++) {
+                if (names[j].length() == names[j+1].length()) {
+                    int x = compareTo(names[j], names[j+1], 1);
+                    if (x > 0) {
+                        String temp = names[j] + "";
+                        names[j] = names[j + 1] + "";
+                        names[j + 1] = temp + "";
+                    }
+                } else {
+                    int x = compareTo(names[j], names[j+1], 0);
+                    if (x > 0)  {
+                        String temp = names[j] + "";
+                        names[j] = names[j + 1] + "";
+                        names[j + 1] = temp + "";
+                    }
+                }
+            }
+        }
+    }
+    //1 for alphabetical
+    //0 for length
+    public int compareTo(String v, String w, int x) {
+       if (x == 1) {
+           return v.compareToIgnoreCase(w);
+       } else {
+           return v.length() - w.length();
+       }
+    }
+
+    
+    private static class ByABC implements Comparator<String> {
+        public int compare(String v, String w){
+           // v.name is a String, and a String object is Comparable
+           return v.compareToIgnoreCase(w);
+        }
+     }
+    private static class ByLength implements Comparator<String> {
+        public int compare(String v, String w){
+            return v.length() - w.length();
+        }
     }
 
     // method to sort array of names, passed as a parameter
@@ -64,7 +106,7 @@ public class Sort {
         // a bubble-sort implementation to put the names in order of ascending length
         for (int i = 1; i < names.length; i++) {
             for (int j = 0; j < names.length - i; j++) {
-                if (names[j].length() > names[j + 1].length()) {
+                if (names[j].length() > names[j + 1].length()) { //do length compareTo
                     String temp = names[j] + "";
                     names[j] = names[j + 1] + "";
                     names[j + 1] = temp + "";
@@ -77,13 +119,13 @@ public class Sort {
         // a bubble-sort implementation to sort names of equal length by each character
         for (int j = 1; j < names.length; j++) {
             for (int k = 0; k < names.length - j - 1; k++) {
-                if (names[j].length() > names[j + 1].length()) {
+                if (names[j].length() > names[j + 1].length()) { //do length compareTo
                     String temp = names[j] + "";
                     names[j] = names[j + 1] + "";
                     names[j + 1] = temp + "";
                 }
                 if (names[k].length() == names[k + 1].length()) {
-                    if ((names[k].compareToIgnoreCase(names[k + 1])) > 0) {
+                    if ((names[k].compareToIgnoreCase(names[k + 1])) > 0) { //actual alphabetical compareTo
                         String temp = names[k] + "";
                         names[k] = names[k + 1] + "";
                         names[k + 1] = temp + "";
@@ -110,7 +152,7 @@ public class Sort {
 
     private static void writeUsingFiles(String data) {
         try {
-            Files.write(Paths.get("C:\\Users\\Brian\\Desktop\\CSC499\\Output.txt"), data.getBytes());
+            Files.write(Paths.get("C:\\Users\\EKUStudent\\Desktop\\CSC499\\Output.txt"), data.getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -118,7 +160,7 @@ public class Sort {
 
     public static void main(String[] args) throws Exception {
         // pass the path to the file as a parameter 
-        File file = new File("C:\\Users\\Brian\\Desktop\\CSC499\\Sort Me.txt");
+        File file = new File("C:\\Users\\EKUStudent\\Desktop\\CSC499\\Sort Me.txt");
 
         Sort sort = new Sort(file);
         
