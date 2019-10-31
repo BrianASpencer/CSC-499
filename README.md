@@ -4,7 +4,7 @@
 
 * You will have to have a recent version of Java (version 8 or higher) to run this program.
 
-* The Java JDK can be downloaded from [Oracle's Website](https://www.oracle.com/technetwork/es/java/javasebusiness/downloads/index.html)
+* The Java JDK can be downloaded from [Oracle's Website](https://www.oracle.com/technetwork/es/java/javasebusiness/downloads/index.html).
 
 * You will also have to be able to run a **_.bat_** file.
 
