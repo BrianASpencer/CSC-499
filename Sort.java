@@ -1,6 +1,6 @@
 /*
 Name: Brian Spencer
-Date: Oct. 9, 2019
+Date: Oct. 30, 2019
 Purpose: Sorts the contents of a file in ascending order by the length of the name, then
          alphabetically.
  */
@@ -12,14 +12,14 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Comparator;
-
 
 public class Sort {
-    private String [] names;
+
+    private String[] names;
+
     // constructor for Sort object
     private Sort(File file) throws Exception {
-        
+
         Scanner sc = new Scanner(file);
         int numNames = 0;
 
@@ -32,6 +32,8 @@ public class Sort {
                 numNames++;
             }
         }
+
+        sc.close();
 
         // array to hold the names of the list
         String[] n = new String[numNames];
@@ -52,120 +54,102 @@ public class Sort {
             }
         }
         this.names = n;
+
+        sc.close();
     }
-    
+
     // method to call sorting methods for length and alphabetically
-    private void sortList() {
-        //sortLen();
-        //sortABC();
+    private void sortList(String key) {
         for (int i = 0; i < names.length; i++) {
-            for (int j = 0; j < names.length-1; j++) {
-                if (names[j].length() == names[j+1].length()) {
-                    int x = compareTo(names[j], names[j+1], 1);
-                    if (x > 0) {
-                        String temp = names[j] + "";
-                        names[j] = names[j + 1] + "";
-                        names[j + 1] = temp + "";
+            for (int j = 0; j < names.length - 1; j++) {
+                if (names[j].length() == names[j + 1].length()) {
+                    int x = compareTo(names[j], names[j + 1], 1);
+                    if (key.equals("desc")) {
+                        if (x < 0) {
+                            swap(names[j], names[j + 1], j);
+                        }
+                    } else {
+                        if (x > 0) {
+                            swap(names[j], names[j + 1], j);
+                        }
                     }
                 } else {
-                    int x = compareTo(names[j], names[j+1], 0);
-                    if (x > 0)  {
-                        String temp = names[j] + "";
-                        names[j] = names[j + 1] + "";
-                        names[j + 1] = temp + "";
-                    }
-                }
-            }
-        }
-    }
-    //1 for alphabetical
-    //0 for length
-    public int compareTo(String v, String w, int x) {
-       if (x == 1) {
-           return v.compareToIgnoreCase(w);
-       } else {
-           return v.length() - w.length();
-       }
-    }
-
-    
-    private static class ByABC implements Comparator<String> {
-        public int compare(String v, String w){
-           // v.name is a String, and a String object is Comparable
-           return v.compareToIgnoreCase(w);
-        }
-     }
-    private static class ByLength implements Comparator<String> {
-        public int compare(String v, String w){
-            return v.length() - w.length();
-        }
-    }
-
-    // method to sort array of names, passed as a parameter
-    private void sortLen() {
-        // a bubble-sort implementation to put the names in order of ascending length
-        for (int i = 1; i < names.length; i++) {
-            for (int j = 0; j < names.length - i; j++) {
-                if (names[j].length() > names[j + 1].length()) { //do length compareTo
-                    String temp = names[j] + "";
-                    names[j] = names[j + 1] + "";
-                    names[j + 1] = temp + "";
-                } 
-            }
-        }
-    }
-    
-    private void sortABC() {
-        // a bubble-sort implementation to sort names of equal length by each character
-        for (int j = 1; j < names.length; j++) {
-            for (int k = 0; k < names.length - j - 1; k++) {
-                if (names[j].length() > names[j + 1].length()) { //do length compareTo
-                    String temp = names[j] + "";
-                    names[j] = names[j + 1] + "";
-                    names[j + 1] = temp + "";
-                }
-                if (names[k].length() == names[k + 1].length()) {
-                    if ((names[k].compareToIgnoreCase(names[k + 1])) > 0) { //actual alphabetical compareTo
-                        String temp = names[k] + "";
-                        names[k] = names[k + 1] + "";
-                        names[k + 1] = temp + "";
+                    int x = compareTo(names[j], names[j + 1], 0);
+                    if (key.equals("desc")) {
+                        if (x < 0) {
+                            swap(names[j], names[j + 1], j);
+                        } 
+                    } else {
+                        if (x > 0) {
+                            swap(names[j], names[j + 1], j);
+                        }
                     }
                 }
             }
         }
     }
 
-    private void print() {
-        // printing out the array of names
+    private void swap(String first, String next, int index) {
+        names[index] = next + "";
+        names[index + 1] = first + "";
+    }
+
+    //key == 1 for alphabetical
+    //key == 0 for length
+    private int compareTo(String first, String next, int key) {
+        if (key == 1) {
+            return first.compareToIgnoreCase(next);
+        } else {
+            return first.length() - next.length();
+        }
+    }
+
+    private void write(String key) {
         String s = "";
         int cnt = 0;
         for (String name : names) {
-            if (cnt != names.length-1) {
+            if (cnt != names.length - 1) {
                 s += name + "\n";
             } else {
                 s += name;
             }
             cnt++;
         }
-        writeUsingFiles(s);
+        writeUsingFiles(s, key);
     }
 
-    private static void writeUsingFiles(String data) {
+    private void writeUsingFiles(String data, String key) {
+        String path = System.getProperty("user.dir");
+        if (key.equals("desc")) {
+            path = path + "\\DescOutput.txt";
+        } else {
+            path = path + "\\Output.txt";
+        }
         try {
-            Files.write(Paths.get("C:\\Users\\EKUStudent\\Desktop\\CSC499\\Output.txt"), data.getBytes());
+            Files.write(Paths.get(path), data.getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public static void main(String[] args) throws Exception {
-        // pass the path to the file as a parameter 
-        File file = new File("C:\\Users\\EKUStudent\\Desktop\\CSC499\\Sort Me.txt");
+
+        String path = System.getProperty("user.dir");
+
+        File file = new File(path + "\\" + args[0]);
 
         Sort sort = new Sort(file);
-        
-        sort.sortList();
-        sort.print();
+
+        String key = "";
+
+        if (args.length > 1) {
+            key = args[1] + "";
+            sort.sortList(key);
+            sort.write(key);
+        } else {
+            sort.sortList(key);
+            sort.write(key);
+        }
         
     }
 }

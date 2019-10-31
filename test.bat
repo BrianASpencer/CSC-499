@@ -1,5 +1,7 @@
-javac Sort.java
+java Sort.java SortMe.txt
 
-java Sort.java
+FC Output.txt Expected.txt
 
-FC C:\\Users\\brian\\Desktop\\CSC499\\Output.txt C:\\Users\brian\\Desktop\\CSC499\\Expected.txt
+java Sort.java SortMe.txt desc
+
+FC DescOutput.txt DescExpected.txt
