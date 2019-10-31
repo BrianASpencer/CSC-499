@@ -150,12 +150,9 @@ public class Sort {
 
         if (args.length > 1) {
             key = args[1] + "";
-            sort.sortList(key);
-            sort.write(key);
-        } else {
-            sort.sortList(key);
-            sort.write(key);
         }
-        
+
+        sort.sortList(key);
+        sort.write(key);
     }
 }
