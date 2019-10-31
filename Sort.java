@@ -1,9 +1,10 @@
 /*
 Name: Brian Spencer
 Date: Oct. 30, 2019
-Purpose: Sorts the contents of a file in ascending order by the length of the name, then
-         alphabetically.
+Purpose: Sorts the contents of a file in ascending or descending order by the length 
+         of the name, then alphabetically.
  */
+
 package Sort;
 
 import java.io.File;
@@ -89,13 +90,15 @@ public class Sort {
         }
     }
 
+    // a simple swap method that will swap the two Strings
+    // at the inputted index and the element after that
     private void swap(String first, String next, int index) {
         names[index] = next + "";
         names[index + 1] = first + "";
     }
 
-    //key == 1 for alphabetical
-    //key == 0 for length
+    // key == 1 for alphabetical
+    // key == 0 for length
     private int compareTo(String first, String next, int key) {
         if (key == 1) {
             return first.compareToIgnoreCase(next);
@@ -104,6 +107,8 @@ public class Sort {
         }
     }
 
+    // creates a String that will be passed to
+    // be written to a file
     private void write(String key) {
         String s = "";
         int cnt = 0;
@@ -118,6 +123,7 @@ public class Sort {
         writeUsingFiles(s, key);
     }
 
+    // writes to a file based on the key
     private void writeUsingFiles(String data, String key) {
         String path = System.getProperty("user.dir");
         if (key.equals("desc")) {
