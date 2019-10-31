@@ -12,7 +12,7 @@
 
 * Change your current directory to where you have the repo (all the files).
 
-* Next, type set *path=%path%;C:\Program Files\Java\jdkx.x.x_xx\bin* and change the *x.x.x_xx* to the version of java you have. This is just in case you can't run Java in your command prompt.
+* Next, type *set path=%path%;C:\Program Files\Java\jdkx.x.x_xx\bin* and change the *x.x.x_xx* to the version of java you have. This is just in case you can't run Java in your command prompt.
 
 * Now, just type **_test.bat_** in the command prompt. It should say whether the Ascending and Descending tests failed or not.
 
