@@ -16,4 +16,4 @@
 
 * Now, just type **_test.bat_** in the command prompt. It should say whether the Ascending and Descending tests failed or not.
 
-* The first test is for an ascending sort and the second test is for a descending test.
+* The first test is for an ascending sort and the second test is for a descending sort.
