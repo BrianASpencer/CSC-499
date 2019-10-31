@@ -64,24 +64,24 @@ public class Sort {
         for (int i = 0; i < names.length; i++) {
             for (int j = 0; j < names.length - 1; j++) {
                 if (names[j].length() == names[j + 1].length()) {
-                    int x = compareTo(names[j], names[j + 1], 1);
+                    int result = compareTo(names[j], names[j + 1], 1);
                     if (key.equals("desc")) {
-                        if (x < 0) {
+                        if (result < 0) {
                             swap(names[j], names[j + 1], j);
                         }
                     } else {
-                        if (x > 0) {
+                        if (result > 0) {
                             swap(names[j], names[j + 1], j);
                         }
                     }
                 } else {
-                    int x = compareTo(names[j], names[j + 1], 0);
+                    int result = compareTo(names[j], names[j + 1], 0);
                     if (key.equals("desc")) {
-                        if (x < 0) {
+                        if (result < 0) {
                             swap(names[j], names[j + 1], j);
                         } 
                     } else {
-                        if (x > 0) {
+                        if (result > 0) {
                             swap(names[j], names[j + 1], j);
                         }
                     }
