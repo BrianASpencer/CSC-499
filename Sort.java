@@ -127,9 +127,9 @@ public class Sort {
     private void writeUsingFiles(String data, String key) {
         String path = System.getProperty("user.dir");
         if (key.equals("desc")) {
-            path = path + "\\DescOutput.txt";
+            path = path + "//DescOutput.txt";
         } else {
-            path = path + "\\Output.txt";
+            path = path + "//Output.txt";
         }
         try {
             Files.write(Paths.get(path), data.getBytes());
@@ -140,19 +140,25 @@ public class Sort {
 
     public static void main(String[] args) throws Exception {
 
-        String path = System.getProperty("user.dir");
+        try {
+            String path = System.getProperty("user.dir");
 
-        File file = new File(path + "\\" + args[0]);
+            File file = new File(path + "//" + args[0]);
 
-        Sort sort = new Sort(file);
+            Sort sort = new Sort(file);
 
-        String key = "";
+            String key = "";
 
-        if (args.length > 1) {
-            key = args[1] + "";
+            if (args.length > 1) {
+                key = args[1] + "";
+            }
+
+            sort.sortList(key);
+            sort.write(key);
+
+            System.exit(0);
+        } catch Exception e {
+            System.exit(1);
         }
-
-        sort.sortList(key);
-        sort.write(key);
     }
 }
