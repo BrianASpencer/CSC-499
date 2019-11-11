@@ -1,10 +1,10 @@
 language: java
 
 jdk:
-  - oraclejdk8
-  - oraclejdk11
-  - openjdk10
   - openjdk11
 
 script:
-  -test.bat
+  - java Sort.java SortMe.txt
+  - diff Output.txt Expected.txt
+  - java Sort.java SortMe.txt desc
+  - diff DescOutput.txt DescExpected.txt
