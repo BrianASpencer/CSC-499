@@ -157,7 +157,7 @@ public class Sort {
             sort.write(key);
 
             System.exit(0);
-        } catch Exception e {
+        } catch (Exception e) {
             System.exit(1);
         }
     }
