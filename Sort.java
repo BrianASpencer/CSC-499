@@ -11,7 +11,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
-
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class Sort {
 
@@ -141,8 +142,8 @@ public class Sort {
 
         try {
             String path = System.getProperty("user.dir");
-
-            File file = new File(path + "//" + args[0]);
+                  
+            //File file = new File(path + "//" + args[0]);
 
             Sort sort = new Sort(file);
 
